@@ -1,0 +1,117 @@
+﻿@model QuizLibraryHost.Question
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @* adding a div to split the screen into 6 columns *@
+        <div class="col-md-6">
+            <h4>Question</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.QuestionId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ImageUrl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MoreInfoUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MoreInfoUrl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MoreInfoUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuestionType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QuestionType, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.QuestionType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReasonForAnswer, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReasonForAnswer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ReasonForAnswer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Adding the button for the answers - This is a copy from Create.cshtml *@
+    <div class="col-md-6">
+        <h4>Answers</h4>
+        <hr />
+
+        @* Lokesh - silencing the answer button, we don't need it. 
+        <button type="button" id="add-answer-button" class="btn btn-success">+</button>
+         end Silencing  *@
+
+        <div id="answers-box"></div>
+
+        @for (int i = 0; i < Model.Answers.Count; i++)
+                {
+                    <input type="hidden" name="Answers[@i].AnswerId" id="Answers[@i].AnswerId" value="@Model.Answers.ElementAt(i).AnswerId" />
+                    <input type="hidden" name="Answers[@i].QuestionId" id="Answers[@i].AnswerId" value="@Model.Answers.ElementAt(i).QuestionId" />
+                    <div>
+                        <label for="Answers[@i].Content" class="control-label">Content:</label>
+                        <textarea id="Answers[@i].Content" name="Answers[@i].Content" class="form-control">@Model.Answers.ElementAt(i).Content</textarea>
+                    </div>
+                    <div>
+                        <label for="Answers[@i].IsCorrect" class="control-label">Is Correct:</label>
+                        
+                        @Html.CheckBox("Answers[" + i + "].IsCorrect", Model.Answers.ElementAt(i).IsCorrect)
+                    </div>
+        }
+
+    </div>
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+}

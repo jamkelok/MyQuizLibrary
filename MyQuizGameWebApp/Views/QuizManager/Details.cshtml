@@ -1,0 +1,79 @@
+﻿@model QuizLibraryHost.Question
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoreInfoUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoreInfoUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuestionType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuestionType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReasonForAnswer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReasonForAnswer)
+        </dd>
+
+    </dl>
+
+    <div>
+        <h4>Answers:</h4>
+        @foreach (var answer in Model.Answers)
+        {
+            <div>
+                Is Correct: @answer.IsCorrect
+            </div>
+            <div>
+                @answer.Content
+            </div>
+        }
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.QuestionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

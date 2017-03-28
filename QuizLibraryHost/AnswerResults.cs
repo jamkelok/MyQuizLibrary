@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace QuizLibraryHost
 {
-    public class Class1
+    public class AnswerResults
     {
+        public bool IsCorrect { get; set; }
     }
 }
